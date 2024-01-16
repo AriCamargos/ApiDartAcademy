@@ -13,7 +13,7 @@ class City {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'nome': name,
     };
   }
 
@@ -25,12 +25,9 @@ class City {
   factory City.fromMap(Map<String, dynamic> map) {
     return City(
       id: map['id'],
-      name: map['name'],
+      name: map['nome'],
     );
   }
 
-  factory City.fromJson(String json) {
-    final jsonMap = jsonDecode(json);
-    return City.fromMap(jsonMap);
-  }
+  factory City.fromJson(String json) => City.fromMap(jsonDecode(json));
 }

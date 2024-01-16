@@ -20,21 +20,20 @@ class Telephone {
 
   //Transforma o método Map para uma String
   String toJson() {
-    return jsonDecode(toMap() as String); //Entender esse retorno de dentro dos () para fora
+    //Entender esse retorno de dentro dos () para fora
+    return jsonDecode(toMap() as String);
   }
 
   //Desserialização
   //Converte o Map retornando uma nova instância de Telefone
   factory Telephone.fromMap(Map<String, dynamic> map) {
     return Telephone(
-      ddd: map['ddd'],
-      telephone: map['telephone'],
+      ddd: map['ddd'] ?? 0,
+      telephone: map['telefone'] ?? 1,
     );
   }
-  
-  
-  factory Telephone.fromJson(String json) {
-    final jsonMap = jsonDecode(json); //Decodifica para obter os dados do mapa em Json
-    return Telephone.fromMap(jsonMap); //Crio um objeto de Telefone a partir da decodificação (a cima) transformando em um Map
-  }
+
+  //Decodifica para obter os dados do mapa em Json e Crio um objeto de Telefone a partir da decodificação (a cima) transformando em um Map
+  factory Telephone.fromJson(String json) =>
+      Telephone.fromMap(jsonDecode(json));
 }

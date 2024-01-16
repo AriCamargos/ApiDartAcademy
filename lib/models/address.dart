@@ -20,11 +20,11 @@ class Address {
 
   Map<String, dynamic> toMap() {
     return {
-      'street': street,
-      'number': number,
-      'zipCode': zipCode,
-      'telephone': telephone,
-      'city': city,
+      'rua': street,
+      'numero': number,
+      'CEP': zipCode,
+      'telefone': telephone.toMap(),
+      'cidade': city.toMap(),
     };
   }
 
@@ -34,16 +34,13 @@ class Address {
 
   factory Address.fromMap(Map<String, dynamic> map) {
     return Address(
-      street: map['rua'],
-      number: map['numero'],
-      city: map['cidade'],
-      telephone: map['telefone'],
-      zipCode: map['CEP'],
+      street: map['rua'] ?? '',
+      number: map['numero'] ?? 0,
+      city: City.fromMap(map['cidade'] ?? {}),
+      telephone: Telephone.fromMap(map['telefone'] ?? {}),
+      zipCode: map['CEP'] ?? '',
     );
   }
 
-  factory Address.fromJson(String json){
-    final jsonMap = jsonDecode(json);
-    return Address.fromMap(jsonMap);
-  }
+  factory Address.fromJson(String json) => Address.fromMap(jsonDecode(json));
 }

@@ -21,22 +21,34 @@ class Students {
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    final map = <String, dynamic>{
       'id': id,
-      'name': name,
-      'age': age,
-      'coursesName': coursesName,
-      'courses': courses,
-      'address': address,
+      'nome': name,
+      'idade': age,
+      'nomeCursos': coursesName,
+      'cursos': courses.map((courses) => courses.toMap()).toList(),
+      'endereco': address.toMap(),
     };
+
+    if (age != null) {
+      map['idade'] = age;
+    }
+    return map;
   }
 
   String toJson(String json) {
     return jsonDecode(toMap() as String);
   }
 
-/*factory Students.fromMap(Map<String, dynamic>map){
-    return Students();
+  factory Students.fromMap(Map<String, dynamic> map) {
+    return Students(
+        id: map['id'],
+        name: map['nome'],
+        address: Address.fromMap(map['endereco']),
+        age: map['idade'],
+        courses: map['cursos'].map<Courses>(),
+        coursesName: List.from(map['nomeCursos']));
+  }
 
-  }*/
+  factory Students.fromJson(String json) => Students.fromMap(jsonDecode(json));
 }
